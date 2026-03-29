@@ -3,6 +3,71 @@
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
+  function getRuntimeConfig() {
+    return window.SiteConfigRuntime?.getCurrentConfig?.() || null;
+  }
+
+  function firstConfiguredValue(value, fallback = '') {
+    if (Array.isArray(value)) {
+      const match = value.find(item => typeof item === 'string' && item.trim());
+      return match || fallback;
+    }
+    return typeof value === 'string' && value.trim() ? value : fallback;
+  }
+
+  function buildLeadMessage(data) {
+    const lines = [
+      'New WRHW enquiry',
+      `Name: ${data.name || '-'}`,
+      `Company: ${data.company || '-'}`,
+      `Phone: ${data.phone || '-'}`,
+      `Email: ${data.email || '-'}`,
+      `Service: ${data.service || '-'}`,
+      `Message: ${data.message || '-'}`
+    ];
+
+    return lines.join('\n');
+  }
+
+  function routeLead(data) {
+    const config = getRuntimeConfig();
+    const domMailLink = document.querySelector('a[href^="mailto:"]');
+    const domWhatsAppLink = document.querySelector('a[href*="wa.me/"]');
+    const domEmail = domMailLink?.getAttribute('href')?.replace(/^mailto:/, '') || 'contact@wrhwfour.com';
+    const domWhatsApp = domWhatsAppLink?.getAttribute('href')?.match(/wa\.me\/(\d+)/)?.[1] || '';
+    const whatsappNumber = config?.social?.whatsappNumber || domWhatsApp;
+    const emailAddress = firstConfiguredValue(config?.contact?.emails, domEmail);
+    const message = buildLeadMessage(data);
+    const subject = encodeURIComponent(`New enquiry from ${data.name || 'Website Visitor'}`);
+    const body = encodeURIComponent(message);
+    const sanitizedWhatsApp = String(whatsappNumber || '').replace(/[^\d]/g, '');
+
+    if (sanitizedWhatsApp) {
+      const whatsappUrl = `https://wa.me/${sanitizedWhatsApp}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank', 'noopener');
+      return {
+        ok: true,
+        channel: 'whatsapp',
+        detail: 'WhatsApp opened with the enquiry details.'
+      };
+    }
+
+    if (emailAddress) {
+      window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+      return {
+        ok: true,
+        channel: 'email',
+        detail: 'Your email app was opened with the enquiry details.'
+      };
+    }
+
+    return {
+      ok: false,
+      channel: 'none',
+      detail: 'No WhatsApp number or email is configured for lead routing.'
+    };
+  }
+
   // --- Navbar Scroll Effect ---
   const navbar = document.getElementById('navbar');
   const navToggle = document.getElementById('nav-toggle');
@@ -153,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- Inquiry Form Handling ---
   const form = document.getElementById('inquiry-form');
   const formSuccess = document.getElementById('form-success');
+  const formSuccessText = formSuccess?.querySelector('p');
 
   if (form) {
     form.addEventListener('submit', (e) => {
@@ -200,16 +266,27 @@ document.addEventListener('DOMContentLoaded', () => {
           data[key] = value;
         });
 
-        console.log('Form Submission:', data);
+        const leadRoute = routeLead(data);
+        if (!leadRoute.ok) {
+          const fallbackEmail = getRuntimeConfig()?.contact?.emails?.[0] || 'contact@wrhwfour.com';
+          window.alert(`Lead routing is not configured. Please update your contact email or WhatsApp number. Current fallback: ${fallbackEmail}`);
+          return;
+        }
 
         // Show success message
         form.style.display = 'none';
+        if (formSuccessText) {
+          formSuccessText.textContent = leadRoute.detail;
+        }
         formSuccess.classList.add('show');
 
         // Reset after 5s
         setTimeout(() => {
           form.reset();
           form.style.display = 'block';
+          if (formSuccessText) {
+            formSuccessText.textContent = 'Our solution architect will contact you within 2 business hours. We look forward to partnering with you.';
+          }
           formSuccess.classList.remove('show');
         }, 5000);
       }

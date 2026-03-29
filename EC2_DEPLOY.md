@@ -5,9 +5,9 @@ This repo can be published on EC2 with Nginx because the checked-in code is fron
 
 Important note:
 
-- The public contact form currently does not send data to any backend.
-- It only validates in the browser and logs the payload to the browser console.
-- You can confirm that in `assets/script.js`.
+- The public contact form does not require a backend now.
+- It validates in the browser and routes enquiries to the configured WhatsApp number or email client from the frontend.
+- The routing logic lives in `assets/script.js`.
 - The dashboard is also frontend-only and uses browser storage, so it is not a secure admin backend.
 
 If you have a separate backend on the same EC2 instance, you can proxy it through Nginx later.
@@ -67,7 +67,32 @@ cd ~/WHRF
 git pull
 ```
 
-## 5. Copy the site into the Nginx web root
+## 5. Recommended One-Command Publish
+
+This repo now includes a publish script that:
+
+- deploys the full site into `/var/www/<domain>/current`
+- installs an HTTP-safe Nginx config first
+- optionally requests a Let's Encrypt certificate
+- upgrades the site to HTTPS automatically if a certificate exists
+
+Ubuntu command:
+
+```bash
+cd ~/WHRF
+chmod +x scripts/publish-site.sh
+sudo bash scripts/publish-site.sh --domain wrhw.thecloso.com --email YOUR_EMAIL@example.com
+```
+
+If you want HTTP-only first:
+
+```bash
+cd ~/WHRF
+chmod +x scripts/publish-site.sh
+sudo bash scripts/publish-site.sh --domain wrhw.thecloso.com
+```
+
+## 6. Manual Web Root Publish
 
 This script publishes the full site so the landing page, inner pages, and service pages all stay linked.
 
@@ -77,7 +102,7 @@ chmod +x scripts/deploy-to-ec2.sh
 sudo DOMAIN=wrhw.thecloso.com bash scripts/deploy-to-ec2.sh
 ```
 
-## 6. Install the Nginx site config
+## 7. Install the Nginx site config
 
 ### Ubuntu / Debian
 
@@ -97,7 +122,7 @@ sudo nginx -t
 sudo systemctl reload nginx
 ```
 
-## 7. Issue SSL for `wrhw.thecloso.com`
+## 8. Issue SSL for `wrhw.thecloso.com`
 
 ### Ubuntu / Debian
 
@@ -111,7 +136,7 @@ sudo certbot --nginx -d wrhw.thecloso.com
 sudo certbot --nginx -d wrhw.thecloso.com
 ```
 
-## 8. Test the site
+## 9. Test the site
 
 ```bash
 curl -I http://wrhw.thecloso.com
@@ -128,17 +153,15 @@ Open these in the browser too:
 - `https://wrhw.thecloso.com/contact`
 - `https://wrhw.thecloso.com/services/server-installation`
 
-## 9. Updating after future changes
+## 10. Updating after future changes
 
 ```bash
 cd ~/WHRF
 git pull
-sudo DOMAIN=wrhw.thecloso.com bash scripts/deploy-to-ec2.sh
-sudo nginx -t
-sudo systemctl reload nginx
+sudo bash scripts/publish-site.sh --domain wrhw.thecloso.com --email YOUR_EMAIL@example.com
 ```
 
-## 10. If you really have a backend on this EC2
+## 11. If you really have a backend on this EC2
 
 This repo does not include backend server code. If your backend is a separate app on the same EC2 instance:
 
