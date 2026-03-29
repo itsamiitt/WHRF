@@ -1,6 +1,7 @@
 # EC2 Publish Guide for `wrhw.thecloso.com`
 
 This repo can be published on EC2 with Nginx because the checked-in code is frontend/static.
+`index.html` is the main landing page at `/`, and the rest of the pages are deployed alongside it.
 
 Important note:
 
@@ -68,19 +69,12 @@ git pull
 
 ## 5. Copy the site into the Nginx web root
 
-This script excludes `dashboard/` by default because it is not a secure admin panel.
+This script publishes the full site so the landing page, inner pages, and service pages all stay linked.
 
 ```bash
 cd ~/WHRF
 chmod +x scripts/deploy-to-ec2.sh
 sudo DOMAIN=wrhw.thecloso.com bash scripts/deploy-to-ec2.sh
-```
-
-If you intentionally want to publish the dashboard too:
-
-```bash
-cd ~/WHRF
-sudo DOMAIN=wrhw.thecloso.com INCLUDE_DASHBOARD=true bash scripts/deploy-to-ec2.sh
 ```
 
 ## 6. Install the Nginx site config

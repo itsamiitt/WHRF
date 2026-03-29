@@ -4,7 +4,6 @@ set -euo pipefail
 DOMAIN="${DOMAIN:-wrhw.thecloso.com}"
 TARGET_ROOT="${TARGET_ROOT:-/var/www/${DOMAIN}}"
 CURRENT_DIR="${TARGET_ROOT}/current"
-INCLUDE_DASHBOARD="${INCLUDE_DASHBOARD:-false}"
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
@@ -25,12 +24,8 @@ RSYNC_ARGS=(
   --exclude=deploy/
 )
 
-if [[ "${INCLUDE_DASHBOARD}" != "true" ]]; then
-  RSYNC_ARGS+=(--exclude=dashboard/)
-fi
-
 echo "Deploying ${REPO_ROOT} -> ${CURRENT_DIR}"
-echo "Include dashboard: ${INCLUDE_DASHBOARD}"
+echo "Deployment mode: full site"
 
 sudo mkdir -p "${CURRENT_DIR}"
 sudo rsync "${RSYNC_ARGS[@]}" "${REPO_ROOT}/" "${CURRENT_DIR}/"
