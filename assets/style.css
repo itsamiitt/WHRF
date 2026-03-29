@@ -1315,6 +1315,15 @@ input, textarea, select, button {
   height: 72px;
 }
 
+.footer-company-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--on-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
+}
+
 .footer-brand .nav-brand {
   color: var(--on-primary);
 }

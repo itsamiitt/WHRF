@@ -4,6 +4,7 @@
 
 const App = {
   currentPage: 'dashboard',
+  pendingRouteState: null,
 
   routes: {
     'dashboard': { module: () => DashboardHome, title: 'Dashboard', icon: 'dashboard' },
@@ -188,6 +189,7 @@ const App = {
   },
 
   navigate(page, params = {}) {
+    this.pendingRouteState = params || null;
     location.hash = '#/' + page;
     // Close mobile sidebar
     document.querySelector('.sidebar')?.classList.remove('open');
@@ -223,6 +225,12 @@ const App = {
       contentEl.style.transform = 'translateY(0)';
 
       if (mod.afterRender) mod.afterRender();
+
+      const routeState = this.pendingRouteState;
+      this.pendingRouteState = null;
+      if (routeState?.action === 'add' && typeof mod.openAddModal === 'function') {
+        setTimeout(() => mod.openAddModal(routeState), 50);
+      }
     }, 100);
   },
 

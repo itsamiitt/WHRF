@@ -7,6 +7,11 @@ const CMSEditor = {
   activeTab: 0,
   previewDevice: 'desktop',
 
+  saveConfig(syncPreview = true) {
+    DataStore.saveSiteConfig(this.config);
+    if (syncPreview) this.syncPreview();
+  },
+
   async loadConfig() {
     this.config = DataStore.getSiteConfig();
     if (!this.config) {
@@ -16,7 +21,7 @@ const CMSEditor = {
       } catch {
         this.config = this.getDefaultConfig();
       }
-      DataStore.saveSiteConfig(this.config);
+      this.saveConfig(false);
     }
   },
 
@@ -295,53 +300,53 @@ const CMSEditor = {
       obj = obj[keys[i]];
     }
     obj[keys[keys.length - 1]] = value;
-    DataStore.saveSiteConfig(this.config);
+    this.saveConfig();
   },
 
   updateStat(index, key, value) {
     if (this.config.hero?.stats?.[index]) {
       this.config.hero.stats[index][key] = value;
-      DataStore.saveSiteConfig(this.config);
+      this.saveConfig();
     }
   },
 
   updateService(index, key, value) {
     if (this.config.services?.[index]) {
       this.config.services[index][key] = value;
-      DataStore.saveSiteConfig(this.config);
+      this.saveConfig();
     }
   },
 
   addService() {
     if (!this.config.services) this.config.services = [];
     this.config.services.push({ id: Date.now().toString(), icon: 'build', title: 'New Service', description: 'Describe this service...' });
-    DataStore.saveSiteConfig(this.config);
+    this.saveConfig();
     this.refreshTab();
   },
 
   removeService(index) {
     this.config.services.splice(index, 1);
-    DataStore.saveSiteConfig(this.config);
+    this.saveConfig();
     this.refreshTab();
   },
 
   updateTestimonial(index, key, value) {
     if (this.config.testimonials?.[index]) {
       this.config.testimonials[index][key] = value;
-      DataStore.saveSiteConfig(this.config);
+      this.saveConfig();
     }
   },
 
   addTestimonial() {
     if (!this.config.testimonials) this.config.testimonials = [];
     this.config.testimonials.push({ text: 'Customer review text...', author: 'New Client', role: 'Position, Company', initials: 'NC', rating: 5 });
-    DataStore.saveSiteConfig(this.config);
+    this.saveConfig();
     this.refreshTab();
   },
 
   removeTestimonial(index) {
     this.config.testimonials.splice(index, 1);
-    DataStore.saveSiteConfig(this.config);
+    this.saveConfig();
     this.refreshTab();
   },
 
@@ -366,6 +371,24 @@ const CMSEditor = {
       UI.toast('Image uploaded (stored in browser)', 'success');
     };
     reader.readAsDataURL(file);
+  },
+
+  syncPreview() {
+    const iframe = document.getElementById('cms-preview-iframe');
+    const previewWindow = iframe?.contentWindow;
+    if (!iframe) return;
+
+    try {
+      if (previewWindow?.SiteConfigRuntime?.applyConfig) {
+        const snapshot = JSON.parse(JSON.stringify(this.config));
+        previewWindow.SiteConfigRuntime.applyConfig(snapshot);
+        return;
+      }
+    } catch {
+      // Fall back to reloading the iframe when direct sync is not available.
+    }
+
+    iframe.src = iframe.src;
   },
 
   switchTab(index) {
@@ -393,11 +416,8 @@ const CMSEditor = {
   },
 
   publishChanges() {
-    DataStore.saveSiteConfig(this.config);
-    UI.toast('Changes saved! Refresh the landing page to see updates.', 'success');
-    // Reload preview iframe
-    const iframe = document.getElementById('cms-preview-iframe');
-    if (iframe) iframe.src = iframe.src;
+    this.saveConfig();
+    UI.toast('Changes saved to browser storage and preview updated.', 'success');
   },
 
   exportConfig() {
