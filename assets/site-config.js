@@ -392,7 +392,7 @@
     }
 
     try {
-      const response = await fetch('data/site-config.json', { cache: 'no-store' });
+      const response = await fetch('/api/public/site-config', { cache: 'no-store' });
       if (!response.ok) return null;
       const config = await response.json();
       applyConfig(config);

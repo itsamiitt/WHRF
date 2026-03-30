@@ -29,42 +29,36 @@ document.addEventListener('DOMContentLoaded', () => {
     return lines.join('\n');
   }
 
-  function routeLead(data) {
-    const config = getRuntimeConfig();
-    const domMailLink = document.querySelector('a[href^="mailto:"]');
-    const domWhatsAppLink = document.querySelector('a[href*="wa.me/"]');
-    const domEmail = domMailLink?.getAttribute('href')?.replace(/^mailto:/, '') || 'contact@wrhwfour.com';
-    const domWhatsApp = domWhatsAppLink?.getAttribute('href')?.match(/wa\.me\/(\d+)/)?.[1] || '';
-    const whatsappNumber = config?.social?.whatsappNumber || domWhatsApp;
-    const emailAddress = firstConfiguredValue(config?.contact?.emails, domEmail);
-    const message = buildLeadMessage(data);
-    const subject = encodeURIComponent(`New enquiry from ${data.name || 'Website Visitor'}`);
-    const body = encodeURIComponent(message);
-    const sanitizedWhatsApp = String(whatsappNumber || '').replace(/[^\d]/g, '');
+  async function submitLead(data) {
+    const source = window.location.pathname === '/contact' ? 'contact_page' : 'website';
+    const response = await fetch('/api/leads', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        ...data,
+        source
+      })
+    });
 
-    if (sanitizedWhatsApp) {
-      const whatsappUrl = `https://wa.me/${sanitizedWhatsApp}?text=${encodeURIComponent(message)}`;
-      window.open(whatsappUrl, '_blank', 'noopener');
-      return {
-        ok: true,
-        channel: 'whatsapp',
-        detail: 'WhatsApp opened with the enquiry details.'
-      };
+    let result = null;
+    try {
+      result = await response.json();
+    } catch (error) {
+      result = null;
     }
 
-    if (emailAddress) {
-      window.location.href = `mailto:${emailAddress}?subject=${subject}&body=${body}`;
+    if (!response.ok) {
       return {
-        ok: true,
-        channel: 'email',
-        detail: 'Your email app was opened with the enquiry details.'
+        ok: false,
+        detail: result?.error || 'Unable to submit your enquiry right now.'
       };
     }
 
     return {
-      ok: false,
-      channel: 'none',
-      detail: 'No WhatsApp number or email is configured for lead routing.'
+      ok: true,
+      detail: result?.message || 'Our solution architect will contact you within 2 business hours.'
     };
   }
 
@@ -221,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const formSuccessText = formSuccess?.querySelector('p');
 
   if (form) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       // Basic validation
@@ -259,6 +253,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (valid) {
+        const submitButton = form.querySelector('#form-submit-btn');
+        if (submitButton) {
+          submitButton.disabled = true;
+        }
+
         // Collect form data
         const formData = new FormData(form);
         const data = {};
@@ -266,17 +265,20 @@ document.addEventListener('DOMContentLoaded', () => {
           data[key] = value;
         });
 
-        const leadRoute = routeLead(data);
-        if (!leadRoute.ok) {
-          const fallbackEmail = getRuntimeConfig()?.contact?.emails?.[0] || 'contact@wrhwfour.com';
-          window.alert(`Lead routing is not configured. Please update your contact email or WhatsApp number. Current fallback: ${fallbackEmail}`);
+        const leadResult = await submitLead(data);
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
+
+        if (!leadResult.ok) {
+          window.alert(leadResult.detail);
           return;
         }
 
         // Show success message
         form.style.display = 'none';
         if (formSuccessText) {
-          formSuccessText.textContent = leadRoute.detail;
+          formSuccessText.textContent = leadResult.detail;
         }
         formSuccess.classList.add('show');
 
@@ -286,6 +288,9 @@ document.addEventListener('DOMContentLoaded', () => {
           form.style.display = 'block';
           if (formSuccessText) {
             formSuccessText.textContent = 'Our solution architect will contact you within 2 business hours. We look forward to partnering with you.';
+          }
+          if (submitButton) {
+            submitButton.disabled = false;
           }
           formSuccess.classList.remove('show');
         }, 5000);
@@ -320,6 +325,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const serviceCards = document.querySelectorAll('.service-card');
   serviceCards.forEach((card, index) => {
     card.style.transitionDelay = `${index * 80}ms`;
+  });
+
+  // --- FAQ Accordions on service pages ---
+  document.querySelectorAll('.faq-question').forEach(question => {
+    question.addEventListener('click', () => {
+      question.closest('.faq-item')?.classList.toggle('open');
+    });
   });
 
   // --- Typing Effect for Hero (subtle) ---
