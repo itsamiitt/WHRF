@@ -1,0 +1,99 @@
+{
+  "branding": {
+    "companyName": "WRHWFOUR",
+    "companyFullName": "WRHWFOUR Private Limited",
+    "tagline": "Pan-India IT Sales, Support & Infrastructure Services",
+    "logoPath": "assets/images/logo.png",
+    "faviconPath": "assets/images/logo.png",
+    "primaryColor": "#3b82f6",
+    "fontFamily": "Manrope"
+  },
+  "contact": {
+    "address": {
+      "street": "8th Floor, World Trade Centre, Unit No.801, Dhole Patil Farms Road, EON Free Zone, Kharadi",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "pincode": "411014",
+      "country": "India"
+    },
+    "phones": ["+91-XXXXXXXXXX"],
+    "emails": ["contact@wrhwfour.com"],
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.2547!2d73.9456!3d18.5537!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c3c3c3c3c3c3%3A0x3c3c3c3c3c3c3c3c!2sWorld%20Trade%20Centre%2C%20Kharadi%2C%20Pune!5e0!3m2!1sen!2sin!4v1234567890",
+    "businessHours": "Mon-Sat, 9:00 AM - 6:00 PM IST"
+  },
+  "social": {
+    "linkedin": "#",
+    "instagram": "#",
+    "facebook": "#",
+    "google": "#",
+    "whatsappNumber": "91XXXXXXXXXX"
+  },
+  "hero": {
+    "badgeText": "Trusted IT Partner — Serving Pan India",
+    "headline": "Pan-India IT Sales, Support &<br>Infrastructure Services<br>for Businesses",
+    "accentText": "Infrastructure Services",
+    "subtitle": "Expert corporate IT solutions, hardware maintenance, and end-to-end infrastructure support for growing companies nationwide. We build the backbone of your digital business.",
+    "primaryCTA": { "text": "Get a Free Consultation", "icon": "headset_mic", "link": "#contact" },
+    "secondaryCTA": { "text": "Talk on WhatsApp", "link": "https://wa.me/91XXXXXXXXXX" },
+    "stats": [
+      { "number": 500, "suffix": "+", "label": "Clients Served" },
+      { "number": 28, "suffix": "+", "label": "Cities Covered" },
+      { "number": 98, "suffix": "%", "label": "Uptime SLA" }
+    ]
+  },
+  "about": {
+    "label": "About WRHWFOUR",
+    "headline": "Your Partner in Professional<br>IT Infrastructure",
+    "paragraphs": [
+      "WRHWFOUR Private Limited is a leading IT Sales & Services and Computer Hardware Service Provider based out of Pune, India. With a steadfast commitment to reliability and technical excellence, we deliver comprehensive IT infrastructure solutions to corporate clients across the nation.",
+      "From hardware procurement and server installations to CCTV surveillance and annual maintenance contracts, our certified engineers ensure that your business technology runs smoothly—anytime, anywhere in India."
+    ],
+    "highlights": [
+      { "icon": "verified", "text": "Certified IT Professionals" },
+      { "icon": "speed", "text": "Fast Response Times" },
+      { "icon": "support_agent", "text": "Dedicated Account Managers" },
+      { "icon": "public", "text": "Pan-India Service Network" }
+    ],
+    "yearsExperience": 10
+  },
+  "services": [
+    { "id": "cctv", "icon": "videocam", "title": "CCTV Installation & Maintenance", "description": "Advanced IP and Analog surveillance systems with remote monitoring capabilities, night vision cameras, and centralized video management.", "page": "services/cctv-installation.html" },
+    { "id": "cpu", "icon": "computer", "title": "Computer / CPU Sales & Repair", "description": "Workstation procurement from top brands and component-level repair services for desktops, laptops, and enterprise computing hardware.", "page": "services/computer-sales-repair.html" },
+    { "id": "server", "icon": "dns", "title": "Server Installation & Maintenance", "description": "Scalable rack and blade server solutions tailored for enterprise workloads with 24/7 uptime monitoring, backup systems, and disaster recovery.", "page": "services/server-installation.html" },
+    { "id": "biometric", "icon": "fingerprint", "title": "Biometric Attendance Machines", "description": "Precision fingerprint, facial recognition, and RFID attendance systems with cloud-based reporting for secure corporate environments.", "page": "services/biometric-attendance.html" },
+    { "id": "amc", "icon": "handshake", "title": "Corporate IT AMC", "description": "Annual Maintenance Contracts designed for zero downtime and predictable IT budgeting with clearly defined SLA, escalation paths, and periodic health checks.", "page": "services/corporate-it-amc.html" },
+    { "id": "networking", "icon": "hub", "title": "Networking Solutions", "description": "Complete LAN/WAN design and setup, fiber optics cabling, robust firewall implementations, VPN configuration, and wireless network optimization.", "page": "services/networking-solutions.html" },
+    { "id": "hardware", "icon": "build", "title": "Hardware Support for Companies", "description": "On-demand technical support for all peripheral and core IT infrastructure including printers, UPS systems, projectors, and office electronics.", "page": "services/hardware-support.html" }
+  ],
+  "whyUs": {
+    "label": "The WRHWFOUR Advantage",
+    "headline": "Why Businesses Choose Us as<br>Their IT Partner",
+    "subtitle": "We don't just fix hardware; we build resilient business ecosystems through elite engineering and strategic IT planning.",
+    "features": [
+      { "icon": "public", "title": "Pan-India Service Support", "description": "Reliable logistics and on-site support across every major Indian city." },
+      { "icon": "bolt", "title": "Fast Response & Expert Technicians", "description": "Guaranteed on-site attendance within 4 hours for critical server failures." },
+      { "icon": "business", "title": "Corporate-Focused IT Solutions", "description": "Solutions designed specifically for the rigorous demands of business environments." },
+      { "icon": "settings_suggest", "title": "End-to-End Installation & Maintenance", "description": "From initial consultation and procurement to deployment and ongoing support." },
+      { "icon": "assignment_turned_in", "title": "Reliable Annual Maintenance Contracts", "description": "Transparent contracts with clearly defined SLAs and escalation paths." },
+      { "icon": "security", "title": "Modern, Secure & Scalable Tech", "description": "Integration of the latest monitoring, security protocols, and scalable solutions." }
+    ]
+  },
+  "testimonials": [
+    { "text": "WRHWFOUR transformed our office networking infrastructure. Their response time during a critical server crisis was exceptional.", "author": "Rajesh Kumar", "role": "IT Director, Manufacturing Corp", "initials": "RK", "rating": 5 },
+    { "text": "The AMC plan they provided saved us nearly 30% on yearly maintenance costs while drastically improving device longevity.", "author": "Priya Sharma", "role": "Operations Head, FinTech Solutions", "initials": "PS", "rating": 5 },
+    { "text": "From biometric setup across 5 branches to complex enterprise firewall configurations, their team is knowledgeable and professional.", "author": "Amit Mehta", "role": "CTO, Logistics Group", "initials": "AM", "rating": 5 }
+  ],
+  "clientLogos": ["TATA", "WIPRO", "INFOSYS", "HCL", "BAJAJ", "L&T"],
+  "seo": {
+    "title": "WRHWFOUR Private Limited | Pan-India IT Sales, Support & Infrastructure Services",
+    "description": "WRHWFOUR Private Limited is a trusted Pan-India IT Sales & Services partner offering computer hardware support, CCTV installation, server maintenance, networking, biometric solutions, and Corporate IT AMC for businesses.",
+    "keywords": "IT services India, computer hardware service, CCTV installation, server maintenance, biometric attendance, networking solutions, IT AMC, IT support Pune, corporate IT services",
+    "canonicalUrl": "https://wrhwfour.com/",
+    "ogImage": "assets/images/og-image.png"
+  },
+  "footer": {
+    "copyrightText": "WRHWFOUR Private Limited. All rights reserved.",
+    "privacyPolicyUrl": "privacy-policy.html",
+    "termsUrl": "terms-of-service.html"
+  }
+}
