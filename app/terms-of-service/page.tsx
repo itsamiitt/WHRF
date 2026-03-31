@@ -1,13 +1,98 @@
-export const dynamic = "force-dynamic";
-
 import type { Metadata } from "next";
+import Link from "next/link";
+import { SiteShell } from "@/components/site/site-shell";
 
-import { getMetadataForSlug, PublicPageView } from "@/components/site/public-page-view";
-
-export async function generateMetadata(): Promise<Metadata> {
-  return getMetadataForSlug("/terms-of-service");
-}
+export const metadata: Metadata = {
+  title: "Terms of Service | WRHWFOUR Private Limited",
+  description: "Read the Terms of Service for WRHWFOUR Private Limited. Understand the terms and conditions governing the use of our IT services and website.",
+  alternates: { canonical: "https://wrhwfour.com/terms-of-service" },
+};
 
 export default function TermsOfServicePage() {
-  return <PublicPageView slug="/terms-of-service" />;
+  return (
+    <SiteShell>
+      <section className="page-hero">
+        <div className="container">
+          <div className="breadcrumb">
+            <Link href="/">Home</Link>
+            <span className="separator">›</span>
+            <span className="current">Terms of Service</span>
+          </div>
+          <h1>Terms of Service</h1>
+          <p className="page-subtitle">Please read these terms carefully before using WRHWFOUR&apos;s services.</p>
+        </div>
+      </section>
+
+      <section className="content-section">
+        <div className="legal-content">
+          <p className="last-updated">Last Updated: March 22, 2026</p>
+
+          <h2>1. Acceptance of Terms</h2>
+          <p>By accessing and using the website and services of WRHWFOUR Private Limited (&ldquo;Company,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;), you accept and agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our website or services.</p>
+
+          <h2>2. Services Description</h2>
+          <p>WRHWFOUR Private Limited provides IT sales, services, and computer hardware support including but not limited to:</p>
+          <ul>
+            <li>CCTV installation and maintenance</li>
+            <li>Computer and CPU sales and repair</li>
+            <li>Server installation and maintenance</li>
+            <li>Biometric attendance machine deployment</li>
+            <li>Corporate IT Annual Maintenance Contracts (AMC)</li>
+            <li>Networking solutions and setup</li>
+            <li>General hardware support for businesses</li>
+          </ul>
+          <p>The specific scope, pricing, and deliverables for each engagement will be defined in separate service agreements or quotation documents.</p>
+
+          <h2>3. Service Agreements</h2>
+          <p>Individual service engagements will be governed by specific service agreements, including but not limited to Annual Maintenance Contracts (AMC), project proposals, and purchase orders. In the event of any conflict between these Terms and a specific service agreement, the service agreement shall prevail.</p>
+
+          <h2>4. Client Obligations</h2>
+          <p>As a client, you agree to:</p>
+          <ul>
+            <li>Provide accurate and complete information when making inquiries or placing orders</li>
+            <li>Ensure timely payment for services as agreed in quotations or contracts</li>
+            <li>Provide reasonable access to your premises and IT infrastructure for service delivery</li>
+            <li>Notify us promptly of any changes in requirements or contact information</li>
+            <li>Not misuse our services or equipment</li>
+          </ul>
+
+          <h2>5. Payment Terms</h2>
+          <p>Payment terms will be specified in individual quotations, invoices, or service agreements. General guidelines include:</p>
+          <ul>
+            <li>Hardware procurement: Advance payment or as per agreed credit terms</li>
+            <li>Service charges: Billed upon completion or as per agreed schedule</li>
+            <li>AMC contracts: Annual/quarterly payments as per the contract terms</li>
+            <li>Late payments may attract interest at the rate specified in the service agreement</li>
+          </ul>
+
+          <h2>6. Warranty and Liability</h2>
+          <p>Hardware products are covered by manufacturer warranties as specified at the time of sale. Service-related warranty terms will be defined in the respective service agreement. WRHWFOUR shall not be liable for:</p>
+          <ul>
+            <li>Data loss unless explicitly covered under a data backup service agreement</li>
+            <li>Damages arising from misuse, unauthorized modifications, or force majeure events</li>
+            <li>Indirect, incidental, or consequential damages beyond the value of the specific service fee</li>
+          </ul>
+
+          <h2>7. Intellectual Property</h2>
+          <p>All content on this website, including text, graphics, logos, and images, is the property of WRHWFOUR Private Limited and is protected by intellectual property laws. You may not reproduce, distribute, or create derivative works without our express written consent.</p>
+
+          <h2>8. Confidentiality</h2>
+          <p>Both parties agree to maintain confidentiality of any proprietary or sensitive information shared during the course of service delivery. This obligation survives the termination of any service agreement.</p>
+
+          <h2>9. Termination</h2>
+          <p>Either party may terminate a service agreement as per the termination provisions specified therein. We reserve the right to refuse service to anyone for any lawful reason. Termination does not relieve either party of obligations accrued prior to the termination date.</p>
+
+          <h2>10. Governing Law</h2>
+          <p>These Terms shall be governed by and construed in accordance with the laws of India. Any disputes arising from these Terms shall be subject to the exclusive jurisdiction of the courts in Pune, Maharashtra.</p>
+
+          <h2>11. Modifications</h2>
+          <p>We reserve the right to modify these Terms at any time. Changes will be effective upon posting on this page. Your continued use of our services after any changes constitutes acceptance of the modified terms.</p>
+
+          <h2>12. Contact</h2>
+          <p>For questions regarding these Terms of Service, please contact us:</p>
+          <p><strong>WRHWFOUR Private Limited</strong><br />8th Floor, World Trade Centre, Unit No.801, Kharadi, Pune, Maharashtra 411014<br />Email: <a href="mailto:contact@wrhwfour.com" style={{ color: "var(--tertiary)" }}>contact@wrhwfour.com</a><br />Phone: <a href="tel:+91XXXXXXXXXX" style={{ color: "var(--tertiary)" }}>+91-XXXXXXXXXX</a></p>
+        </div>
+      </section>
+    </SiteShell>
+  );
 }

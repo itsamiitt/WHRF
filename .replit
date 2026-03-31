@@ -4,3 +4,39 @@ expertMode = true
 
 [nix]
 channel = "stable-25_05"
+
+[userenv]
+
+[userenv.shared]
+NEXTAUTH_URL = "https://a3ff4621-3e69-4822-991b-b309a79deb3d-00-oxv3qd4y6cu1.worf.replit.dev"
+APP_URL = "https://a3ff4621-3e69-4822-991b-b309a79deb3d-00-oxv3qd4y6cu1.worf.replit.dev"
+UPLOAD_DIR = "./public/uploads"
+NEXTAUTH_SECRET = "ijO9F80phxvFfGasVX756i/+ecBcHahARYX21iAiTHw="
+
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Start application"
+
+[[workflows.workflow]]
+name = "Start application"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "pnpm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
+[[ports]]
+localPort = 5000
+externalPort = 80
