@@ -5,6 +5,22 @@ body {
   min-height: 100%;
 }
 
+/* Inner page navbar: always solid regardless of scroll position or JS */
+.navbar--solid {
+  background: rgba(249, 249, 255, 0.96) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.08);
+}
+
+.navbar--solid .nav-links a {
+  color: var(--on-surface-variant) !important;
+}
+
+.navbar--solid .nav-links a:hover {
+  color: var(--primary) !important;
+}
+
 /* Ensure page content is always visible by default.
    The fade-in animation in style.css hides elements until JS adds .visible.
    Using !important here ensures content is never invisible regardless of CSS load order. */

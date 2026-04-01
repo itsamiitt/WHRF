@@ -17,7 +17,7 @@ export function SiteNavbar({ active = "other", scrolled = true }: SiteNavbarProp
     active === page ? "var(--primary)" : "var(--on-surface-variant)";
 
   return (
-    <nav className={`navbar${scrolled ? " scrolled" : ""}`} id="navbar" role="navigation" aria-label="Main navigation">
+    <nav className={`navbar navbar--solid${scrolled ? " scrolled" : ""}`} id="navbar" role="navigation" aria-label="Main navigation">
       <div className="container">
         <Link href="/" className="nav-logo" aria-label="WRHWFOUR Home">
           <Image src="/assets/WRHW_logo.png" alt="WRHWFOUR Logo" width={160} height={48} priority />

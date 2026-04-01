@@ -67,8 +67,10 @@ function initWRHWFOUR() {
   const navToggle = document.getElementById('nav-toggle');
   const navLinks = document.getElementById('nav-links');
 
+  const isHomePage = window.location.pathname === '/';
+
   function handleScroll() {
-    if (window.scrollY > 60) {
+    if (!isHomePage || window.scrollY > 60) {
       navbar.classList.add('scrolled');
     } else {
       navbar.classList.remove('scrolled');
