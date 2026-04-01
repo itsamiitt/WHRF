@@ -5,6 +5,24 @@ body {
   min-height: 100%;
 }
 
+/* Ensure page content is always visible by default.
+   The fade-in animation in style.css hides elements until JS adds .visible.
+   Using !important here ensures content is never invisible regardless of CSS load order. */
+.fade-in,
+.fade-in-left,
+.fade-in-right {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Re-enable fade-in only after script adds the .visible class or .js-ready on body */
+.fade-in.visible,
+.fade-in-left.visible,
+.fade-in-right.visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
 body {
   min-height: 100vh;
 }

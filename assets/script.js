@@ -2,7 +2,7 @@
    WRHWFOUR PRIVATE LIMITED — Landing Page JS
    ============================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+function initWRHWFOUR() {
   function getRuntimeConfig() {
     return window.SiteConfigRuntime?.getCurrentConfig?.() || null;
   }
@@ -163,13 +163,21 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
+        entry.target.style.opacity = '';
+        entry.target.style.transform = '';
         observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
   document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right').forEach(el => {
-    observer.observe(el);
+    const rect = el.getBoundingClientRect();
+    const inViewport = rect.top < window.innerHeight && rect.bottom >= 0;
+    if (inViewport) {
+      el.classList.add('visible');
+    } else {
+      observer.observe(el);
+    }
   });
 
   // --- Counter Animations ---
@@ -365,4 +373,10 @@ document.addEventListener('DOMContentLoaded', () => {
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
-});
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initWRHWFOUR);
+} else {
+  initWRHWFOUR();
+}
