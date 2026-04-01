@@ -2,7 +2,7 @@
 
 import { randomUUID } from "crypto";
 
-import { LeadStatus, PageType, RevisionStatus, Role } from "@prisma/client";
+import { LeadStatus, PageType, RevisionStatus, Role, ContactStatus, DealStage, DealPriority, TaskStatus, TaskPriority } from "@prisma/client";
 import { hash } from "bcryptjs";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
@@ -321,6 +321,159 @@ export async function updateLeadAction(formData: FormData) {
 
   revalidatePath("/admin/leads");
   redirect("/admin/leads");
+}
+
+export async function createContactAction(formData: FormData) {
+  const session = await requireRole([Role.ADMIN, Role.SALES]);
+  const name = stringField(formData, "name");
+  if (!name) return;
+  await prisma.contact.create({
+    data: {
+      name,
+      email: optionalStringField(formData, "email") || undefined,
+      phone: optionalStringField(formData, "phone") || undefined,
+      company: optionalStringField(formData, "company") || undefined,
+      designation: optionalStringField(formData, "designation") || undefined,
+      city: optionalStringField(formData, "city") || undefined,
+      status: (stringField(formData, "status") as ContactStatus) || ContactStatus.PROSPECT,
+      notes: optionalStringField(formData, "notes") || undefined,
+      createdById: session.user.id,
+    },
+  });
+  revalidatePath("/admin/contacts");
+  redirect("/admin/contacts");
+}
+
+export async function updateContactAction(formData: FormData) {
+  await requireRole([Role.ADMIN, Role.SALES]);
+  const id = stringField(formData, "id");
+  await prisma.contact.update({
+    where: { id },
+    data: {
+      name: stringField(formData, "name"),
+      email: optionalStringField(formData, "email") || undefined,
+      phone: optionalStringField(formData, "phone") || undefined,
+      company: optionalStringField(formData, "company") || undefined,
+      designation: optionalStringField(formData, "designation") || undefined,
+      city: optionalStringField(formData, "city") || undefined,
+      status: stringField(formData, "status") as ContactStatus,
+      notes: optionalStringField(formData, "notes") || undefined,
+    },
+  });
+  revalidatePath("/admin/contacts");
+  redirect("/admin/contacts");
+}
+
+export async function deleteContactAction(formData: FormData) {
+  await requireRole([Role.ADMIN]);
+  const id = stringField(formData, "id");
+  await prisma.contact.delete({ where: { id } });
+  revalidatePath("/admin/contacts");
+  redirect("/admin/contacts");
+}
+
+export async function createDealAction(formData: FormData) {
+  const session = await requireRole([Role.ADMIN, Role.SALES]);
+  const title = stringField(formData, "title");
+  if (!title) return;
+  const valueStr = optionalStringField(formData, "value");
+  const expectedCloseStr = optionalStringField(formData, "expectedClose");
+  await prisma.deal.create({
+    data: {
+      title,
+      contactId: optionalStringField(formData, "contactId") || undefined,
+      value: valueStr ? parseFloat(valueStr) : undefined,
+      stage: (stringField(formData, "stage") as DealStage) || DealStage.PROSPECTING,
+      priority: (stringField(formData, "priority") as DealPriority) || DealPriority.MEDIUM,
+      service: optionalStringField(formData, "service") || undefined,
+      expectedClose: expectedCloseStr ? new Date(expectedCloseStr) : undefined,
+      notes: optionalStringField(formData, "notes") || undefined,
+      assignedToId: optionalStringField(formData, "assignedToId") || undefined,
+      createdById: session.user.id,
+    },
+  });
+  revalidatePath("/admin/deals");
+  redirect("/admin/deals");
+}
+
+export async function updateDealAction(formData: FormData) {
+  await requireRole([Role.ADMIN, Role.SALES]);
+  const id = stringField(formData, "id");
+  const valueStr = optionalStringField(formData, "value");
+  const expectedCloseStr = optionalStringField(formData, "expectedClose");
+  await prisma.deal.update({
+    where: { id },
+    data: {
+      title: stringField(formData, "title"),
+      contactId: optionalStringField(formData, "contactId") || undefined,
+      value: valueStr ? parseFloat(valueStr) : undefined,
+      stage: stringField(formData, "stage") as DealStage,
+      priority: stringField(formData, "priority") as DealPriority,
+      service: optionalStringField(formData, "service") || undefined,
+      expectedClose: expectedCloseStr ? new Date(expectedCloseStr) : undefined,
+      notes: optionalStringField(formData, "notes") || undefined,
+      assignedToId: optionalStringField(formData, "assignedToId") || undefined,
+    },
+  });
+  revalidatePath("/admin/deals");
+  redirect("/admin/deals");
+}
+
+export async function deleteDealAction(formData: FormData) {
+  await requireRole([Role.ADMIN]);
+  const id = stringField(formData, "id");
+  await prisma.deal.delete({ where: { id } });
+  revalidatePath("/admin/deals");
+  redirect("/admin/deals");
+}
+
+export async function createTaskAction(formData: FormData) {
+  const session = await requireRole([Role.ADMIN, Role.SALES, Role.EDITOR]);
+  const title = stringField(formData, "title");
+  if (!title) return;
+  const dueDateStr = optionalStringField(formData, "dueDate");
+  await prisma.task.create({
+    data: {
+      title,
+      description: optionalStringField(formData, "description") || undefined,
+      status: (stringField(formData, "status") as TaskStatus) || TaskStatus.TODO,
+      priority: (stringField(formData, "priority") as TaskPriority) || TaskPriority.MEDIUM,
+      dueDate: dueDateStr ? new Date(dueDateStr) : undefined,
+      dealId: optionalStringField(formData, "dealId") || undefined,
+      assignedToId: optionalStringField(formData, "assignedToId") || undefined,
+      createdById: session.user.id,
+    },
+  });
+  revalidatePath("/admin/tasks");
+  redirect("/admin/tasks");
+}
+
+export async function updateTaskAction(formData: FormData) {
+  await requireRole([Role.ADMIN, Role.SALES, Role.EDITOR]);
+  const id = stringField(formData, "id");
+  const dueDateStr = optionalStringField(formData, "dueDate");
+  await prisma.task.update({
+    where: { id },
+    data: {
+      title: stringField(formData, "title"),
+      description: optionalStringField(formData, "description") || undefined,
+      status: stringField(formData, "status") as TaskStatus,
+      priority: stringField(formData, "priority") as TaskPriority,
+      dueDate: dueDateStr ? new Date(dueDateStr) : undefined,
+      dealId: optionalStringField(formData, "dealId") || undefined,
+      assignedToId: optionalStringField(formData, "assignedToId") || undefined,
+    },
+  });
+  revalidatePath("/admin/tasks");
+  redirect("/admin/tasks");
+}
+
+export async function deleteTaskAction(formData: FormData) {
+  await requireRole([Role.ADMIN]);
+  const id = stringField(formData, "id");
+  await prisma.task.delete({ where: { id } });
+  revalidatePath("/admin/tasks");
+  redirect("/admin/tasks");
 }
 
 export async function createUserAction(formData: FormData) {

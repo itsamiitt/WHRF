@@ -53,12 +53,17 @@ model User {
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
   image         String?
-  pagesCreated  PageRevision[] @relation("RevisionAuthor")
-  assignedLeads Lead[]         @relation("AssignedLeads")
-  leadActivities LeadActivity[] @relation("LeadActivityAuthor")
-  mediaAssets   MediaAsset[]
-  accounts      Account[]
-  sessions      Session[]
+  pagesCreated      PageRevision[] @relation("RevisionAuthor")
+  assignedLeads     Lead[]         @relation("AssignedLeads")
+  leadActivities    LeadActivity[] @relation("LeadActivityAuthor")
+  mediaAssets       MediaAsset[]
+  accounts          Account[]
+  sessions          Session[]
+  contactsCreated   Contact[]      @relation("ContactCreatedBy")
+  assignedDeals     Deal[]         @relation("DealAssignedTo")
+  dealsCreated      Deal[]         @relation("DealCreatedBy")
+  assignedTasks     Task[]         @relation("TaskAssignedTo")
+  tasksCreated      Task[]         @relation("TaskCreatedBy")
 }
 
 model Page {
@@ -179,4 +184,102 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+enum ContactStatus {
+  ACTIVE
+  INACTIVE
+  PROSPECT
+  CUSTOMER
+  CHURNED
+}
+
+enum DealStage {
+  PROSPECTING
+  QUALIFICATION
+  PROPOSAL
+  NEGOTIATION
+  CLOSED_WON
+  CLOSED_LOST
+}
+
+enum DealPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskStatus {
+  TODO
+  IN_PROGRESS
+  DONE
+  CANCELLED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+model Contact {
+  id          String        @id @default(cuid())
+  name        String
+  email       String?
+  phone       String?
+  company     String?
+  designation String?
+  status      ContactStatus @default(PROSPECT)
+  notes       String?
+  city        String?
+  createdById String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  createdBy   User?         @relation("ContactCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  deals       Deal[]
+
+  @@index([status, createdAt])
+}
+
+model Deal {
+  id          String       @id @default(cuid())
+  title       String
+  contactId   String?
+  value       Float?
+  currency    String       @default("INR")
+  stage       DealStage    @default(PROSPECTING)
+  priority    DealPriority @default(MEDIUM)
+  service     String?
+  expectedClose DateTime?
+  notes       String?
+  assignedToId String?
+  createdById  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  contact     Contact?     @relation(fields: [contactId], references: [id], onDelete: SetNull)
+  assignedTo  User?        @relation("DealAssignedTo", fields: [assignedToId], references: [id], onDelete: SetNull)
+  createdBy   User?        @relation("DealCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+  tasks       Task[]
+
+  @@index([stage, createdAt])
+}
+
+model Task {
+  id          String       @id @default(cuid())
+  title       String
+  description String?
+  status      TaskStatus   @default(TODO)
+  priority    TaskPriority @default(MEDIUM)
+  dueDate     DateTime?
+  dealId      String?
+  assignedToId String?
+  createdById  String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  deal        Deal?        @relation(fields: [dealId], references: [id], onDelete: SetNull)
+  assignedTo  User?        @relation("TaskAssignedTo", fields: [assignedToId], references: [id], onDelete: SetNull)
+  createdBy   User?        @relation("TaskCreatedBy", fields: [createdById], references: [id], onDelete: SetNull)
+
+  @@index([status, dueDate])
 }

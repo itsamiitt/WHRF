@@ -31,6 +31,9 @@ export function AdminShell({ user, children }: AdminShellProps) {
             <Link href="/admin">Overview</Link>
             <Link href="/admin/content">Content</Link>
             <Link href="/admin/leads">Leads</Link>
+            <Link href="/admin/contacts">Contacts</Link>
+            <Link href="/admin/deals">Deals</Link>
+            <Link href="/admin/tasks">Tasks</Link>
             <Link href="/admin/team">Team</Link>
             <Link href="/admin/settings">Settings</Link>
             <Link href="/" target="_blank">
