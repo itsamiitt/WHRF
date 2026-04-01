@@ -1,5 +1,3 @@
-"use client";
-
 import Script from "next/script";
 import { SiteNavbar, HomeNavbar } from "./site-navbar";
 import { SiteFooter } from "./site-footer";

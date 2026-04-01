@@ -80,7 +80,7 @@ export function SiteFooter() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; {year} WRHWFOUR Private Limited. All rights reserved.</p>
+          <p suppressHydrationWarning>&copy; {year} WRHWFOUR Private Limited. All rights reserved.</p>
           <p>
             <Link href="/privacy-policy">Privacy Policy</Link>
             &nbsp;|&nbsp;

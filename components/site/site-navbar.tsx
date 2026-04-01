@@ -48,12 +48,12 @@ export function HomeNavbar() {
           <Image src="/assets/WRHW_logo.png" alt="WRHWFOUR Logo" width={160} height={48} className="logo-light" priority />
         </a>
         <div className="nav-links" id="nav-links">
-          <a href="#about">About</a>
-          <a href="#services">Services</a>
+          <Link href="/about">About</Link>
+          <Link href="/services">Services</Link>
           <a href="#why-us">Why Us</a>
           <a href="#coverage">Coverage</a>
           <a href="#testimonials">Clients</a>
-          <a href="#contact" className="nav-cta">Get a Quote</a>
+          <Link href="/contact" className="nav-cta">Get a Quote</Link>
         </div>
         <button className="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
           <span></span>
