@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 
 import "./globals.css";
 
@@ -30,9 +31,11 @@ export default function RootLayout({
         />
         <link rel="icon" href="/assets/WRHW_logo.png" type="image/png" />
         <link rel="stylesheet" href="/assets/style.css" />
-        <link rel="stylesheet" href="/assets/pages.css" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Script src="/assets/script.js" strategy="afterInteractive" />
+      </body>
     </html>
   );
 }

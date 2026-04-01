@@ -1,5 +1,3 @@
-"use client";
-
 import Script from "next/script";
 import { SiteNavbar, HomeNavbar } from "./site-navbar";
 import { SiteFooter } from "./site-footer";
@@ -10,11 +8,20 @@ interface SiteShellProps {
   children: React.ReactNode;
   variant?: NavbarVariant;
   includeHomeScripts?: boolean;
+  includePageStyles?: boolean;
 }
 
-export function SiteShell({ children, variant = "other", includeHomeScripts = false }: SiteShellProps) {
+export function SiteShell({
+  children,
+  variant = "other",
+  includeHomeScripts = false,
+  includePageStyles = false,
+}: SiteShellProps) {
   return (
     <>
+      {includePageStyles && (
+        <link rel="stylesheet" href="/assets/pages.css" precedence="default" />
+      )}
       {variant === "home" ? <HomeNavbar /> : <SiteNavbar active={variant} />}
       {children}
       <SiteFooter />
@@ -23,7 +30,6 @@ export function SiteShell({ children, variant = "other", includeHomeScripts = fa
       {includeHomeScripts && (
         <Script src="/assets/site-config.js" strategy="afterInteractive" />
       )}
-      <Script src="/assets/script.js" strategy="afterInteractive" />
     </>
   );
 }
