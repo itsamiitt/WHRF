@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <SiteShell includePageStyles={true}>
+    <SiteShell>
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">

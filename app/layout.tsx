@@ -31,6 +31,7 @@ export default function RootLayout({
         />
         <link rel="icon" href="/assets/WRHW_logo.png" type="image/png" />
         <link rel="stylesheet" href="/assets/style.css" />
+        <link rel="stylesheet" href="/assets/pages.css" />
       </head>
       <body>
         {children}

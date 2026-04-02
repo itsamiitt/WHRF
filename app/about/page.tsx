@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <SiteShell variant="about" includePageStyles={true}>
+    <SiteShell variant="about">
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">

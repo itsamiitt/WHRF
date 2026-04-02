@@ -29,7 +29,7 @@ export default async function ServiceDetailPage({ params }: { params: Params }) 
   const titleLines = service.pageTitle.split("\n");
 
   return (
-    <SiteShell variant="services" includePageStyles={true}>
+    <SiteShell variant="services">
       <section className="page-hero service-page-hero">
         <div className="container">
           <div>

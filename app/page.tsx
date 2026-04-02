@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import { SiteShell } from "@/components/site/site-shell";
 
 export const metadata: Metadata = {
@@ -13,7 +14,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <SiteShell variant="home" includeHomeScripts={true}>
+      <SiteShell variant="home">
         <HeroSection />
         <AboutSection />
         <ServicesSection />
@@ -22,6 +23,7 @@ export default function HomePage() {
         <TestimonialsSection />
         <InquirySection />
       </SiteShell>
+      <Script src="/assets/site-config.js" strategy="afterInteractive" />
     </>
   );
 }
