@@ -69,7 +69,7 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <SiteShell variant="services">
+    <SiteShell variant="services" includePageStyles={true}>
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">

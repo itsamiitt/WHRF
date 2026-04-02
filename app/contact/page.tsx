@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <SiteShell variant="contact">
+    <SiteShell variant="contact" includePageStyles={true}>
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <SiteShell>
+    <SiteShell includePageStyles={true}>
       <section className="page-hero">
         <div className="container">
           <div className="breadcrumb">
