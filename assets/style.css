@@ -16,12 +16,12 @@
   --secondary: #4e6070;
   --secondary-container: #d0e6f0;
 
-  /* Tertiary / Accent — Teal Cyan (replaces orange) */
-  --tertiary: #0d9488;
-  --tertiary-dark: #0f766e;
-  --tertiary-light: #5eead4;
-  --tertiary-container: #042f2e;
-  --tertiary-fixed: #ccfbf1;
+  /* Tertiary / Accent — Orange */
+  --tertiary: #e67e22;
+  --tertiary-dark: #d35400;
+  --tertiary-light: #ffb783;
+  --tertiary-container: #572900;
+  --tertiary-fixed: #ffdcc5;
 
   /* Surfaces — cool-tinted whites */
   --surface: #f6fafa;
