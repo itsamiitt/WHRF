@@ -14,51 +14,47 @@ import {
 
 const defaultSiteUrl = "https://wrhwfour.com";
 
+const legacyDir = path.join(/* turbopackIgnore: true */ process.cwd(), "_legacy");
+
 const projectFilePaths = {
-  "index.html": path.join(/* turbopackIgnore: true */ process.cwd(), "index.html"),
-  "about.html": path.join(/* turbopackIgnore: true */ process.cwd(), "about.html"),
-  "contact.html": path.join(/* turbopackIgnore: true */ process.cwd(), "contact.html"),
-  "services.html": path.join(/* turbopackIgnore: true */ process.cwd(), "services.html"),
-  "privacy-policy.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
-    "privacy-policy.html"
-  ),
-  "terms-of-service.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
-    "terms-of-service.html"
-  ),
+  "index.html": path.join(legacyDir, "index.html"),
+  "about.html": path.join(legacyDir, "about.html"),
+  "contact.html": path.join(legacyDir, "contact.html"),
+  "services.html": path.join(legacyDir, "services.html"),
+  "privacy-policy.html": path.join(legacyDir, "privacy-policy.html"),
+  "terms-of-service.html": path.join(legacyDir, "terms-of-service.html"),
   "services/cctv-installation.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "cctv-installation.html"
   ),
   "services/computer-sales-repair.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "computer-sales-repair.html"
   ),
   "services/server-installation.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "server-installation.html"
   ),
   "services/biometric-attendance.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "biometric-attendance.html"
   ),
   "services/corporate-it-amc.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "corporate-it-amc.html"
   ),
   "services/networking-solutions.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "networking-solutions.html"
   ),
   "services/hardware-support.html": path.join(
-    /* turbopackIgnore: true */ process.cwd(),
+    legacyDir,
     "services",
     "hardware-support.html"
   ),
