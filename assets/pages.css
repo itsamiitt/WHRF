@@ -5,7 +5,7 @@
 /* --- Page Hero / Banner --- */
 .page-hero {
   position: relative;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 40%, #0d2b52 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 40%, #0e2236 100%);
   padding: calc(var(--nav-height) + var(--space-16)) 0 var(--space-16);
   color: var(--on-primary);
   overflow: hidden;
@@ -18,7 +18,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('images/hero-bg.png') center/cover no-repeat;
+  background: url('/assets/images/hero-bg.png') center/cover no-repeat;
   opacity: 0.08;
 }
 
@@ -726,11 +726,6 @@
 
 /* --- Responsive Inner Pages --- */
 @media (max-width: 1024px) {
-  .about-content-full {
-    grid-template-columns: 1fr !important;
-    gap: var(--space-8) !important;
-  }
-
   .mission-vision-grid {
     grid-template-columns: 1fr;
   }

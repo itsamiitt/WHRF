@@ -1,0 +1,13 @@
+.next
+tsconfig.tsbuildinfo
+node_modules
+.env
+.env.local
+.env.production
+coverage
+playwright-report
+test-results
+prisma/dev.db
+prisma/dev.db-journal
+public/uploads/*
+!public/uploads/.gitkeep

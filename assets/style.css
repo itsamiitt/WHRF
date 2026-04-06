@@ -5,43 +5,43 @@
 
 /* --- CSS Custom Properties / Design Tokens --- */
 :root {
-  /* Primary Palette */
-  --primary: #002045;
-  --primary-container: #1a365d;
-  --primary-light: #2d476f;
-  --primary-fixed: #d6e3ff;
-  --primary-fixed-dim: #adc7f7;
+  /* Primary Palette — Charcoal Steel Blue */
+  --primary: #102a43;
+  --primary-container: #1d4870;
+  --primary-light: #2e6ba3;
+  --primary-fixed: #cce5ff;
+  --primary-fixed-dim: #95c8fa;
 
   /* Secondary */
-  --secondary: #555f71;
-  --secondary-container: #d6e0f6;
+  --secondary: #4e6070;
+  --secondary-container: #d0e6f0;
 
-  /* Tertiary / Accent (Orange) */
+  /* Tertiary / Accent — Orange */
   --tertiary: #e67e22;
   --tertiary-dark: #d35400;
   --tertiary-light: #ffb783;
   --tertiary-container: #572900;
   --tertiary-fixed: #ffdcc5;
 
-  /* Surfaces */
-  --surface: #f9f9ff;
-  --surface-dim: #d0daf0;
-  --surface-container: #e7eeff;
-  --surface-container-low: #f0f3ff;
+  /* Surfaces — cool-tinted whites */
+  --surface: #f6fafa;
+  --surface-dim: #cad9e0;
+  --surface-container: #e0eff5;
+  --surface-container-low: #edf6fa;
   --surface-container-lowest: #ffffff;
-  --surface-container-high: #dee8ff;
-  --surface-container-highest: #d9e3f9;
-  --surface-variant: #d9e3f9;
+  --surface-container-high: #d3e8f2;
+  --surface-container-highest: #c5dfec;
+  --surface-variant: #c5dfec;
 
   /* Text / On Colors */
-  --on-surface: #121c2c;
-  --on-surface-variant: #43474e;
+  --on-surface: #0a1f2e;
+  --on-surface-variant: #3a4d5c;
   --on-primary: #ffffff;
-  --on-primary-container: #86a0cd;
+  --on-primary-container: #7ab3d8;
 
   /* Outlines */
-  --outline: #74777f;
-  --outline-variant: #c4c6cf;
+  --outline: #6b808e;
+  --outline-variant: #b8cdd8;
 
   /* Misc */
   --error: #ba1a1a;
@@ -252,8 +252,33 @@ input, textarea, select, button {
 }
 
 .nav-logo img {
-  height: 40px;
+  height: 62px;
   width: auto;
+}
+
+/* Logo toggle: blue logo for dark bg, regular for light bg */
+.nav-logo .logo-light {
+  display: block;
+}
+
+.nav-logo .logo-dark {
+  display: none;
+}
+
+.navbar:not(.scrolled) .nav-logo .logo-light {
+  display: none;
+}
+
+.navbar:not(.scrolled) .nav-logo .logo-dark {
+  display: block;
+}
+
+.navbar.scrolled .nav-logo .logo-light {
+  display: block;
+}
+
+.navbar.scrolled .nav-logo .logo-dark {
+  display: none;
 }
 
 .nav-brand {
@@ -355,7 +380,7 @@ input, textarea, select, button {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 40%, #0d2b52 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 40%, #0e2236 100%);
   overflow: hidden;
   padding-top: var(--nav-height);
 }
@@ -367,7 +392,7 @@ input, textarea, select, button {
   left: 0;
   right: 0;
   bottom: 0;
-  background: url('images/hero-bg.png') center/cover no-repeat;
+  background: url('/assets/images/hero-bg.png') center/cover no-repeat;
   opacity: 0.15;
   z-index: 0;
 }
@@ -1284,6 +1309,19 @@ input, textarea, select, button {
 
 .footer-brand .nav-logo {
   margin-bottom: var(--space-4);
+}
+
+.footer-brand .nav-logo img {
+  height: 72px;
+}
+
+.footer-company-name {
+  font-family: 'Manrope', sans-serif;
+  font-size: 1.125rem;
+  font-weight: 800;
+  color: var(--on-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-3);
 }
 
 .footer-brand .nav-brand {
