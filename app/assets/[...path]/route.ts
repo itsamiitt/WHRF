@@ -39,10 +39,11 @@ export async function GET(
     const contentType =
       contentTypeByExtension.get(extension) ?? "application/octet-stream";
 
+    const isStyle = extension === ".css" || extension === ".js";
     return new NextResponse(file, {
       headers: {
         "Content-Type": contentType,
-        "Cache-Control": "public, max-age=86400"
+        "Cache-Control": isStyle ? "no-cache, must-revalidate" : "public, max-age=86400"
       }
     });
   } catch {
