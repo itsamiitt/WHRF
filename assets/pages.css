@@ -5,7 +5,7 @@
 /* --- Page Hero / Banner --- */
 .page-hero {
   position: relative;
-  background: linear-gradient(135deg, #000f22 0%, #001530 50%, #060d1a 100%);
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 40%, #0d2b52 100%);
   padding: calc(var(--nav-height) + var(--space-16)) 0 var(--space-16);
   color: var(--on-primary);
   overflow: hidden;
