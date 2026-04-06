@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 import "./globals.css";
+import "@/assets/style.css";
+import "@/assets/pages.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://wrhwfour.com"),
@@ -15,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -30,10 +32,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
         <link rel="icon" href="/assets/WRHW_logo.png" type="image/png" />
-        <link rel="stylesheet" href="/assets/style.css" />
-        <link rel="stylesheet" href="/assets/pages.css" />
       </head>
-      <body>
+      <body suppressHydrationWarning>
         {children}
         <Script src="/assets/script.js" strategy="afterInteractive" />
       </body>
