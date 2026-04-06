@@ -52,18 +52,18 @@ export default async function ServiceDetailPage({ params }: { params: Params }) 
               <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener" className="btn btn-secondary btn-lg">Talk on WhatsApp</a>
             </div>
           </div>
-          <div className="service-detail-visual fade-in-right" style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)" }}>
-            <div className="detail-icon" style={{ background: "rgba(255,255,255,0.1)", color: "var(--on-primary)" }}>
+          <div className="service-detail-visual fade-in-right">
+            <div className="detail-icon">
               <span className="material-icons-outlined">{service.icon}</span>
             </div>
             <div className="detail-stats">
               <div className="detail-stat">
-                <div className="stat-value" style={{ color: "var(--on-primary)" }}>{service.stat1Value}</div>
-                <div className="stat-desc" style={{ color: "rgba(255,255,255,0.6)" }}>{service.stat1Label}</div>
+                <div className="stat-value">{service.stat1Value}</div>
+                <div className="stat-desc">{service.stat1Label}</div>
               </div>
               <div className="detail-stat">
-                <div className="stat-value" style={{ color: "var(--on-primary)" }}>{service.stat2Value}</div>
-                <div className="stat-desc" style={{ color: "rgba(255,255,255,0.6)" }}>{service.stat2Label}</div>
+                <div className="stat-value">{service.stat2Value}</div>
+                <div className="stat-desc">{service.stat2Label}</div>
               </div>
             </div>
           </div>
